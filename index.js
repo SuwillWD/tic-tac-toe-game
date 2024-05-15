@@ -62,6 +62,41 @@ const gameController = (function (
         return gameboard.getBoard()[row][col] === '' ? false : true;
     }; 
 
+    const checkWinner = () => {
+
+        const board = gameboard.getBoard();
+
+        // check row winning conditions
+        for (let i = 0; i < 3; i++) {
+            if (board[i][0] === board[i][1] && board[i][1] === board[i][2] && board[i][2] !== "") {
+                console.log(`${getActivePlayer().name} is the winner!`);
+                return 1;
+            }
+        }
+
+        // check column winning conditions
+        for (let i = 0; i < 3; i++) {
+            if (board[0][i] === board[1][i] && board[1][i] === board[2][i] && board[2][i] !== "") {
+                console.log(`${getActivePlayer().name} is the winner!`);
+                return 1;
+            }
+        }
+
+        // check diagonal winning conditions
+        if (board[0][0] === board[1][1] && board[1][1] === board[2][2] && board[2][2] !== "") {
+            console.log(`${getActivePlayer().name} is the winner!`);
+                return 1;
+        }
+        if (board[0][2] === board[1][1] && board[1][1] === board[2][0] && board[2][0] !== "") {
+            console.log(`${getActivePlayer().name} is the winner!`);
+                return 1;
+        }
+
+        
+        
+
+    }
+
     const playRound = (row, col) => {
         
         if (checkMove(row, col)) {
@@ -74,7 +109,8 @@ const gameController = (function (
         gameboard.markCell(row, col, getActivePlayer().token);
 
 
-
+        let thereIsAWinner = checkWinner();
+        if (thereIsAWinner) return;
         switchPlayer();
         startNewRound();
     };
@@ -89,3 +125,4 @@ const gameController = (function (
 })();
 
 gameController;
+
