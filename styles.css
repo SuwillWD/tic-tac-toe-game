@@ -47,6 +47,7 @@ body {
     height: 80px;
     cursor: pointer;
     background-color: burlywood;
+    font-size: 28px;
 }
 
 .game-board button:hover {

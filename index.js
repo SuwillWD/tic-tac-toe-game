@@ -1,4 +1,3 @@
-
 const gameboard = (function () {
     const rows = 3;
     const columns = 3;
@@ -138,5 +137,43 @@ const gameController = (function (
     }
 })();
 
-gameController;
+const screenController = function () {
+    const infoDiv = document.querySelector('.info-box');
+    const gameDiv = document.querySelector('.game-board');
+    
+    const updateScreen = () => {
+        
+        const board = gameboard.getBoard();
+        const activePlayer = gameController.getActivePlayer().name;
 
+        // clear gameDiv 
+        gameDiv.textContent = "";
+
+        // update info div
+        infoDiv.textContent = `${activePlayer}'s turn...`;
+
+        // Render board
+        board.forEach((row, index1) => {
+            row.forEach((column, index2) => {
+
+                // create buttons for the game cells
+                let cellBtn = document.createElement('button');
+                cellBtn.dataset.rowIndex = index1;
+                cellBtn.dataset.colIndex = index2;
+                cellBtn.textContent = board[index1][index2];
+                gameDiv.appendChild(cellBtn); 
+            });
+        });
+        
+    };
+
+    gameDiv.addEventListener('click', (e) => {
+        gameController.playRound(e.target.dataset.rowIndex, e.target.dataset.colIndex);
+        updateScreen();
+    });
+    
+
+    updateScreen();
+}
+
+screenController();
