@@ -3,13 +3,19 @@ const gameboard = (function () {
     const columns = 3;
     let board = [];
 
-    for (let i = 0; i < rows; i++) {
-        board[i] = [];
-        for (let j = 0; j < columns; j++) {
-            board[i][j] = "";
+    const resetBoard = () => {
+
+        for (let i = 0; i < rows; i++) {
+            board[i] = [];
+            for (let j = 0; j < columns; j++) {
+                board[i][j] = "";
+            }
         }
+    
     }
 
+    resetBoard();
+    
     const getBoard = () => board;
 
     const markCell = (row, col, playerToken) => {
@@ -23,7 +29,7 @@ const gameboard = (function () {
     }
     
 
-    return {getBoard, markCell, printBoard};
+    return {getBoard, markCell, printBoard, resetBoard};
 })();
 
 
@@ -206,6 +212,13 @@ const screenController = function () {
         }
         updateScreen();
     });
+
+    playAgainBtn.addEventListener('click', () => {
+        console.log('click');
+        gameboard.resetBoard();
+        model.close();
+        updateScreen();
+    })
     
     updateScreen();
 }
