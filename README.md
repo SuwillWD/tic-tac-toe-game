@@ -7,6 +7,7 @@ Welcome to the Tic Tac Toe game! This browser-based game is built using HTML, CS
 - [Features](#features)
 - [How to Play](#how-to-play)
 - [Code Overview](#code-overview)
+- [Live Preview](#live-preview)
 
 ## Features
 
@@ -52,3 +53,6 @@ The JavaScript file contains the game logic, implemented using advanced concepts
 - **Module Pattern**: Organizes the game logic into self-contained modules.
 - **IIFE (Immediately Invoked Function Expressions)**: Ensures that modules are executed as soon as they are defined, keeping the global scope clean.
 - **Data Encapsulation**: Protects the game state and logic from outside interference, promoting a modular and maintainable codebase.
+
+## Live Preview
+Visit site live [here](https://suwillwd.github.io/tic-tac-toe-game/).
