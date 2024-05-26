@@ -133,19 +133,24 @@ const gameController = (function (
     return {
         checkMove,
         playRound,
-        getActivePlayer
+        getActivePlayer,
+        checkWinner
     }
 })();
 
 const screenController = function () {
     const infoDiv = document.querySelector('.info-box');
     const gameDiv = document.querySelector('.game-board');
+    const model = document.getElementById('winner-box');
+    const winnerText = document.querySelector('#winner-box h1');
+    const startScreenBtn = document.querySelector('#start-screen');
+    const playAgainBtn = document.querySelector('#play-again');
+    
     
     const updateScreen = () => {
         
         const board = gameboard.getBoard();
         const activePlayer = gameController.getActivePlayer().name;
-
         // clear gameDiv 
         gameDiv.textContent = "";
 
@@ -164,16 +169,46 @@ const screenController = function () {
                 gameDiv.appendChild(cellBtn); 
             });
         });
+
+        const renderWinner = function() {
+            if (gameController.checkWinner()) {
+                winnerText.textContent = `Congratulations! ${activePlayer} is the winner!`;
+                model.showModal();
+                return 1;
+            }
+            return null;
+        }
+
+        return {
+            renderWinner
+        }
         
     };
 
+    const renderInvalidMove = function() {
+        infoDiv.textContent = 'Click on a valid cell.';
+    }
+
     gameDiv.addEventListener('click', (e) => {
-        gameController.playRound(e.target.dataset.rowIndex, e.target.dataset.colIndex);
+
+        const rowIndex = e.target.dataset.rowIndex;
+        const colIndex = e.target.dataset.colIndex;
+
+        const validMove = gameController.checkMove(rowIndex, colIndex);
+        if (validMove) {
+            renderInvalidMove();
+            return;
+        }   
+
+        gameController.playRound(rowIndex, colIndex);
+        if (updateScreen().renderWinner()) {
+            return;
+        }
         updateScreen();
     });
     
-
     updateScreen();
 }
 
 screenController();
+

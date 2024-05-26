@@ -54,6 +54,38 @@ body {
     background-color: rgb(173, 141, 99);
 }
 
+dialog {
+    /* position: fixed; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    height: 50%;
+    width: 50%;
+    background-color: rgb(156, 90, 156);
+    border: none;
+    color: white;
+}
+
+dialog button {
+    flex: 1;
+    background-color: rgb(69, 255, 69);
+    color: white;
+    font-weight: 800;
+    font-size: 22px;
+    border: none;
+    border-radius: 5px;
+    display: block;
+    padding: 30px;
+    width: 100%;
+    margin: 30px 0px;
+}
+
+dialog button:hover {
+    background-color: rgb(41, 190, 41);
+    cursor: pointer;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
