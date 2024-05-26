@@ -137,6 +137,7 @@ const gameController = (function (
     startNewRound();
 
     return {
+        players,
         checkMove,
         playRound,
         getActivePlayer,
@@ -144,14 +145,17 @@ const gameController = (function (
     }
 })();
 
-const screenController = function () {
+const screenController = (function () {
     const infoDiv = document.querySelector('.info-box');
     const gameDiv = document.querySelector('.game-board');
     const model = document.getElementById('winner-box');
     const winnerText = document.querySelector('#winner-box h1');
     const startScreenBtn = document.querySelector('#start-screen');
     const playAgainBtn = document.querySelector('#play-again');
+    const play = document.getElementById('play');
+    const startScreen = document.getElementById('start');
     
+    startScreen.showModal();
     
     const updateScreen = () => {
         
@@ -214,14 +218,32 @@ const screenController = function () {
     });
 
     playAgainBtn.addEventListener('click', () => {
-        console.log('click');
         gameboard.resetBoard();
         model.close();
         updateScreen();
-    })
-    
-    updateScreen();
-}
+    });
 
-screenController();
+    startScreenBtn.addEventListener('click', () => {
+        gameboard.resetBoard();
+        model.close();
+        updateScreen();
+        startScreen.showModal();
+    });
+
+    play.addEventListener('click', (e) => {
+
+        const form = document.getElementById('start-form');
+        const formData = new FormData(form);
+
+        gameController.players[0].name = formData.get('player1');
+        gameController.players[1].name = formData.get('player2');
+
+        e.preventDefault();
+        updateScreen();
+        startScreen.close();
+    });
+    
+})();
+
+
 
